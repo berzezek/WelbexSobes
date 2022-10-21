@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia'
-import {useTableStore} from "./table";
-import {usePaginationStore} from "./pagination";
+import {useTableStore} from "@/stores/table";
+import {usePaginationStore} from "@/stores/pagination";
 
 type TypeConditions = {
   text: string,
@@ -17,9 +17,7 @@ type TypeTableData = {
 };
 
 type TypeSearchArgs = {
-  column: string,
-  condition: string,
-  value: string
+  [key: string] : string,
 };
 
 type TypeArrayTableData = Array<TypeTableData>;
@@ -62,13 +60,13 @@ export const useSearchStore = defineStore('search', {
       return tableStore.getTableData.filter(item => {
         switch (state.searchArgs.condition) {
           case "eq":
-            return item[state.searchArgs.column].toString() === state.searchArgs.value.toString();
+            return item[state.searchArgs.column as keyof TypeTableData].toString() === state.searchArgs.value.toString();
           case "contains":
-            return item[state.searchArgs.column].toString().includes(state.searchArgs.value.toString());
+            return item[state.searchArgs.column as keyof TypeTableData].toString().includes(state.searchArgs.value.toString());
           case "gt":
-            return item[state.searchArgs.column] > state.searchArgs.value;
+            return item[state.searchArgs.column as keyof TypeTableData] > state.searchArgs.value;
           case "lt":
-            return item[state.searchArgs.column] < state.searchArgs.value;
+            return item[state.searchArgs.column as keyof TypeTableData] < state.searchArgs.value;
           default:
             return tableStore.getTableData;
         }

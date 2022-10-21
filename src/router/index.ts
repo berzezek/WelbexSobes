@@ -12,6 +12,11 @@ const router = createRouter({
         path: '/about',
         name: 'AboutPage',
         component: () => import('@/views/AboutPage.vue')
+    },
+    {
+        path: '/composition',
+        name: 'WelbexComposition',
+        component: () => import('@/views/WelbexComposition.vue')
     }
   ]
 })

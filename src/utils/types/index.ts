@@ -8,9 +8,7 @@ type TypeTableData = {
 type TypeArrayTableData = Array<TypeTableData>;
 
 type TypeSearchArgs = {
-column: string,
-condition: string,
-value: string
+  [key: string] : string,
 };
 
 type TypeConditions = {

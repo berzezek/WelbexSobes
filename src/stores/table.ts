@@ -16,8 +16,8 @@ export const useTableStore = defineStore('table', {
     }
   },
   actions: {
-    fetchTable(): void {
-      fetch(`http://welbex.cn73530.tmweb.ru/api/v1/table/`)
+    async fetchTable(): Promise<void> {
+      await fetch(`http://welbex.cn73530.tmweb.ru/api/v1/table/`)
         .then(response => response.json())
         .then(data => {
           this.tableData = data.results
@@ -28,21 +28,25 @@ export const useTableStore = defineStore('table', {
     },
     sortedUpData(name: string): void {
       this.getTableData.sort((a: TypeTableData, b: TypeTableData) => {
+        // @ts-ignore
         return b[name].localeCompare(a[name]);
       })
     },
     sortedDownData(name: string): void {
       this.getTableData.sort((a: TypeTableData, b: TypeTableData) => {
+        // @ts-ignore
         return a[name].localeCompare(b[name]);
       })
     },
     sortedUpNumberData(name: string): void {
       this.getTableData.sort((a: TypeTableData, b: TypeTableData): number => {
+        // @ts-ignore
         return a[name] - b[name];
       })
     },
     sortedDownNumberData(name: string): void {
       this.getTableData.sort((a: TypeTableData, b: TypeTableData): number => {
+        // @ts-ignore
         return b[name] - a[name];
       })
     },

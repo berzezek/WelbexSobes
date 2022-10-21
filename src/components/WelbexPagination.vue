@@ -4,35 +4,32 @@
     <div >
       <div v-if="pageCountValue!==''" class="d-flex justify-content-center mb-5">
         <div
-            v-for="pageNum in getPageCount"
+            v-for="pageNum in pageCount"
             :key="pageNum"
             class="page"
-            :class="{'current-page': getCurrentPage === pageNum}"
+            :class="{'current-page': currentPage === pageNum}"
             @click="changePage(pageNum)"
-            v-show="getCurrentPage-2 <= pageNum && pageNum <= getCurrentPage+2"
+            v-show="currentPage-2 <= pageNum && pageNum <= currentPage+2"
         >{{ pageNum }}</div>
       </div>
 
     </div>
     <div class="container">
       <welbex-select
-          :options="getOptions"
+          :options="options"
           :selectedOption="'Все записи'"
           class="mb-3"
           v-model="pageCountValue"
           @change="changePageCountValue(pageCountValue)"
       />
-      <p>Всего записей: {{ count }}</p>
-      <p v-if="pageCountValue !== ''">Всего страниц: {{ getPageCount }}</p>
+      <p>Всего записей: {{ rowsCount }}</p>
+      <p v-if="pageCountValue !== ''">Всего страниц: {{ pageCount }}</p>
     </div>
   </div>
 
 </template>
 
 <script>
-import { mapState, mapActions } from 'pinia';
-import {usePaginationStore} from "@/stores/pagination";
-
 export default {
   name: "WelbexPagination",
   data() {
@@ -41,15 +38,27 @@ export default {
     }
   },
   props: {
-    count: {
+    rowsCount: {
       type: Number
     },
-  },
-  computed: {
-    ...mapState(usePaginationStore, ['getOptions', 'getPageCountValue', 'getCurrentPage', 'getPageCount']),
+    options: {
+      type: Array
+    },
+    pageCount: {
+      type: Number
+    },
+    currentPage: {
+      type: Number
+    }
+
   },
   methods: {
-    ...mapActions(usePaginationStore, ['changePage', 'changePageCountValue']),
+    changePageCountValue(value) {
+      this.$emit('changePageCountValue', value);
+    },
+    changePage(pageNum) {
+      this.$emit('changePage', pageNum);
+    }
   },
 
 }

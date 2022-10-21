@@ -3,13 +3,13 @@
   "include": ["env.d.ts"],
   "compilerOptions": {
     "baseUrl": ".",
-    "target": "es5",
+    "target": "esnext",
     "strict": true,
-    "module": "es2015",
+    "module": "esnext",
+    "types": ["vite/client"],
     "moduleResolution": "node",
     "paths": {
       "@/*": ["./src/*"],
-
     }
   },
 

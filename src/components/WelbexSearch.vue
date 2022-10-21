@@ -36,7 +36,7 @@ import {useSearchStore} from "@/stores/search";
 import {mapActions, mapState} from "pinia";
 
 export default {
-  name: "SearchTable",
+  name: "WelbexSearch",
   data() {
     return {
       selectedColumn: "",
